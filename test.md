@@ -2,7 +2,7 @@
 
 最小二乘法又称为最小平方法，是一种数学优化建模方法。它通过最小化误差的平方和寻找数据的最佳函数匹配。最小二乘法是对线性方程组，即方程个数比未知数更多的方程组，以回归分析求得近似解的标准方法。在这个解决方案中，最小二乘法演算为每一方程的结果中，将残差平方和的总和最小化。
 
-最小二乘法分为线性和非线性，取决于所有未知数中的残差是否为线性。线性的最小二乘问题放生在统计回归分析中，具有一个封闭形式的解决方案。非线性的问题通常由迭代细致化来解决，每次迭代中，系统由线性近似，因此这两种情况下核心演算是相同的。
+最小二乘法分为线性和非线性，取决于所有未知数中的残差是否为线性。线性的最小二乘问题发生在统计回归分析中，具有一个封闭形式的解决方案。非线性的问题通常由迭代细致化来解决，每次迭代中，系统由线性近似，因此这两种情况下核心演算是相同的。
 
 ## 1、历史背景
 
@@ -72,7 +72,7 @@ $${\displaystyle{y_i=\beta_0+\beta_1x_i+\epsilon_i}}$$
 
 通过最小二乘法估计回归系数，目标是希望偏差平方和$Q$达到最小：
 
-$$Q(\beta_0,\beta_1)=\sum (y_i-\beta_0-\beta_1x_i)^2$$
+$$Q(\beta_0,\beta_1)=\sum_{i=1}^n (y_i-\beta_0-\beta_1x_i)^2$$
 
 由于$Q$是一个非负二次型，因此可通过令$Q$对$\beta_0,\beta_1$的偏导为零来求：
 
@@ -88,8 +88,25 @@ $$
 
 $$
 \begin{cases}
-    {\displaystyle n\beta_0 + \beta_1} \\
+    {\displaystyle n\beta_0 + n\overline{x}\cdot\beta_1}=n\overline{y} \\
     \\
-    {\displaystyle }
+    {\displaystyle n\overline{x}\beta_0+\sum{x_i^2\beta_1}=\sum{x_iy_i}}
+    
 \end{cases}
 $$
+
+两式合并后
+
+$$
+\begin{aligned}
+    \left( \sum{x_i^2} -n\overline{x}^2 \right)\beta_1&=\sum{x_iy_i}-n\overline{x}\overline{y}\\
+    \left( \sum{x_i^2} + \sum{\overline{x}^2}-2n\overline{x}^2 \right)\beta_1&=\sum{x_iy_i}-\sum{x_i}\overline{y}\\
+    \left( \sum{x_i^2} + \sum{\overline{x}^2}-2\sum{x_i}\overline{x} \right)\beta_1&=\sum{x_iy_i}-\sum{x_i}\overline{y}+n\overline{x}\overline{y}-n\overline{x}\overline{y}\\
+    \left( \sum{(x_i -\overline{x})^2} \right)\beta_1&=\sum{x_iy_i}-\sum{x_i}\overline{y}+\sum{\overline{x}y_i}-\sum\overline{x}\overline{y}\\
+    \left( \sum{(x_i -\overline{x})^2} \right)\beta_1&=\sum{(x_i-\overline{x})(y_i-\overline{y})}\\
+    \beta_1&=\frac{cov(x,y)}{Var(x)}
+\end{aligned}
+$$
+
+实际上 $\beta_1$ 是 $x$ 与 $y$ 的协方差与 $x$ 方差的商
+
