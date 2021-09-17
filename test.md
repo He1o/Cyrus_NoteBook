@@ -91,7 +91,6 @@ $$
     {\displaystyle n\beta_0 + n\overline{x}\cdot\beta_1}=n\overline{y} \\
     \\
     {\displaystyle n\overline{x}\beta_0+\sum{x_i^2\beta_1}=\sum{x_iy_i}}
-    
 \end{cases}
 $$
 
@@ -110,3 +109,52 @@ $$
 
 实际上 $\beta_1$ 是 $x$ 与 $y$ 的协方差与 $x$ 方差的商
 
+通过以上的方法可以推导出更多特征的求解方法，通过高斯消元法可以求解多元线性方程组，求得解析解。
+
+同时也可以通过矩阵法求解，将多个方程看做一个整体进行求解。
+
+$$
+{\displaystyle 
+    {\begin{pmatrix}
+    1& x_{11}& \cdots & x_{1j}\cdots & x_{1q}\\
+    1& x_{21}& \cdots & x_{2j}\cdots & x_{2q}\\
+    \vdots \\
+    1& x_{i1}& \cdots & x_{ij}\cdots & x_{iq}\\
+    \vdots \\
+    1& x_{n1}& \cdots & x_{nj}\cdots & x_{nq}
+    \end{pmatrix}} 
+    \cdot 
+    {\begin{pmatrix}\beta_{0}\\\beta_{1}\\\beta_{2}\\\vdots \\\beta_{j}\\\vdots \\\beta_{q}\end{pmatrix}}=
+    {\begin{pmatrix}y_{1}\\y_{2}\\\vdots \\y_{i}\\\vdots \\y_{n}\end{pmatrix}}}
+$$
+
+矩阵表达式为：
+$$
+    Q=min{||Xw-y||}^2
+$$
+
+求 $w$ 的最小二乘估计，即求 $\frac{\partial Q}{\partial w}$ 的零点。其中 $y$ 是 $m\times 1$ 列向量，$X$ 是 $m\times n$ 矩阵，$w$是$n\times 1$列向量，$Q$是标量。
+
+将向量模平方改写成向量与自身的内积：
+$$Q=(Xw-y)^T(Xw-y)$$
+
+求微分：
+$$
+\begin{aligned}
+    dQ&=(Xdw)^T(Xw-y)+(Xw-y)^T(Xdw)\\
+    &=2(Xw-y)^T(Xdw)
+\end{aligned}
+$$
+这里是因为两个向量的内积满足$u^Tv=v^Tu$。
+
+导数与微分的关系式
+$$dQ={\frac{\partial Q}{\partial w}}^Tdw$$
+得到
+$${\frac{\partial Q}{\partial w}}=2(Xw-y)(X)^T=0$$
+求解可得
+$$
+\begin{aligned}
+    X^TXw&=X^Ty\\
+    w&=(X^TX)^{-1}X^Ty
+\end{aligned}
+$$
