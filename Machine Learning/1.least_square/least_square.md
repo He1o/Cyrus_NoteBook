@@ -158,3 +158,11 @@ $$
     w&=(X^TX)^{-1}X^Ty
 \end{aligned}
 $$
+
+[1. 最小二乘法的本质是什么？](https://www.zhihu.com/question/37031188)
+[2. 最小二乘法小结-刘建平Pinard](https://www.cnblogs.com/pinard/p/5976811.html)
+[3. 最小二乘法-维基百科](https://zh.wikipedia.org/wiki/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95)
+[4. 最小二乘法详细推导 - 知乎](https://zhuanlan.zhihu.com/p/84133777)
+[5. 最小二乘法 - 知乎](https://zhuanlan.zhihu.com/p/89373759)
+[6. 矩阵形式下的最小二乘法推导 - 知乎](https://zhuanlan.zhihu.com/p/87582571)
+[7. 矩阵求导术（上）- 知乎](https://zhuanlan.zhihu.com/p/24709748)
