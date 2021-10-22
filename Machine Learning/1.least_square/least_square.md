@@ -150,7 +150,7 @@ $$
 导数与微分的关系式
 $$dQ={\frac{\partial Q}{\partial w}}^Tdw$$
 得到
-$${\frac{\partial Q}{\partial w}}=2(Xw-y)(X)^T=0$$
+$${\frac{\partial Q}{\partial w}}=(2(Xw-y)^TX)^T=2X^T(Xw-y)=0$$
 求解可得
 $$
 \begin{aligned}
@@ -158,6 +158,14 @@ $$
     w&=(X^TX)^{-1}X^Ty
 \end{aligned}
 $$
+
+## 4、思考
+为什么损失函数不用误差的绝对值？
+$$Q(\beta_0,\beta_1)=\sum_{i=1}^n |y_i-\beta_0-\beta_1x_i|$$
+网上有人说是太麻烦，但我觉得主要原因是**绝对值函数连续但不可导**，无法通过求导数的为零的极值点，也无法通过梯度下降法进行求解。
+
+但是绝对值函数总是有极小值的
+
 
 [1. 最小二乘法的本质是什么？](https://www.zhihu.com/question/37031188)
 [2. 最小二乘法小结-刘建平Pinard](https://www.cnblogs.com/pinard/p/5976811.html)
