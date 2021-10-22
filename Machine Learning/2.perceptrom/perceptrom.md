@@ -87,5 +87,11 @@ $$\bigtriangledown_b L(w,b)=-\sum_{x_i\in M}y_i$$
 随机选取一个误分类点$(x_i,y_i)$，对 $w,b$ 进行更新：
 $$w\leftarrow w+ \eta y_ix_i$$
 $$b\leftarrow b+ \eta y_i$$
+式中$\eta$是步长，在统计学习中称为学习率。通过迭代可以期待损失函数不断减少。
+
+## 4、算法收敛性
+
+
+
 [1. 感知器-维基百科](https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8)
 [2. 点到平面的距离公式](https://www.cnblogs.com/graphics/archive/2010/07/10/1774809.html)
