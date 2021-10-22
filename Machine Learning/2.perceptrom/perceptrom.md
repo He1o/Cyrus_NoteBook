@@ -85,9 +85,16 @@ $M$ 是误分类点的集合。
 $$\bigtriangledown_w L(w,b)=-\sum_{x_i\in M}y_ix_i$$
 $$\bigtriangledown_b L(w,b)=-\sum_{x_i\in M}y_i$$
 随机选取一个误分类点$(x_i,y_i)$，对 $w,b$ 进行更新：
-$$w\leftarrow w+ \eta y_ix_i$$
-$$b\leftarrow b+ \eta y_i$$
+$$w_{t+1}\leftarrow w_{t}+ \eta y_ix_i$$
+$$b_{t+1}\leftarrow b_{t}+ \eta y_i$$
 式中$\eta$是步长，在统计学习中称为学习率。通过迭代可以期待损失函数不断减少。
+
+为了便于推导，可以将偏置 $b$ 并入权重向量 $w$
+$$w\cdot x_i+b=$$ 
+
+总结算法流程如下:
+1. 初始化参数，迭代次数$t=1$并且$w_1$为全是0的权重向量。
+2. 对每一个样本$x_t$预测，$f(x_t)=+1$
 
 ## 4、算法收敛性
 
