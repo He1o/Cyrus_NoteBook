@@ -236,7 +236,7 @@ plt.plot(x, np.poly1d(beta)(x), label='fitted curve')
 
 plt.show()
 ```
-![avatar][fig1]
+![最小二乘法拟合图](https://raw.githubusercontent.com/He1o/Cyrus_NoteBook/main/Machine%20Learning/1.least_square/source/Figure_1.png)
 
 [1. 最小二乘法的本质是什么？](https://www.zhihu.com/question/37031188)
 [2. 最小二乘法小结-刘建平Pinard](https://www.cnblogs.com/pinard/p/5976811.html)
