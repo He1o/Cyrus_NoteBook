@@ -70,6 +70,10 @@ $$\frac{1}{\left\|w\right\|}|w\cdot x_0+b|$$
 > $$d=\frac{|n|\cdot|PQ|\cdot \cos\theta}{|n|}$$
 > $$d=\frac{\vec{n}\cdot \vec{PQ}}{|n|}$$
 > 同理可以推广到多维空间
+> 
+> **记住一点：**
+>
+> **权重向量是超平面的法线**
 
 对于误分类的数据$(x_i,y_i)$，当$w\cdot x_i+b>0$，$y_i=-1$；反之，$y_i=+1$，因此任一点$x_i$到超平面$S$的距离是
 $$-\frac{1}{\left\|w\right\|}y_i(w\cdot x_i+b)$$
@@ -101,12 +105,59 @@ $$w\cdot x+b=[w,b]\cdot [x,1]=\mathbf w\cdot \mathbf x$$
 ## 4、算法收敛性
 在证明感知机算法收敛性之前，先证明两个假设。
 
-**假定1**. 对于线性可分的数据集，存在 $\mathbf w^*$ 满足 $\left\|\mathbf w^* \right\|=1$ ,使得超平面 $\mathbf w^* \cdot \mathbf x=0$ 能够将所有训练数据完全正确分开，且存在 $\gamma > 0$，对于所有 $i\in \{1,2,...,n\}$，
+**定理1(线性可分性).** 对于线性可分的数据集，存在 $\mathbf w^*$ 满足 $\left\|\mathbf w^* \right\|=1$ ,使得超平面 $\mathbf w^* \cdot \mathbf x=0$ 能够将所有训练数据完全正确分开，且存在 $\gamma > 0$，对于所有 $i\in \{1,2,...,n\}$，
 $$y_i(\mathbf w^* \cdot \mathbf x_i) > \gamma$$
 证明：由于训练数据集是线性可分的，则存在超平面将数据集完全分开，取此超平面为 $\mathbf w^* \cdot \mathbf x=0$，通过向量单位化使 $\left\|\mathbf w^* \right\|=1$ 。由于对于有限的数据集 $i\in \{1,2,...,n\}$，均有
 $$y_i(\mathbf w^* \cdot \mathbf x_i) > 0$$
 所以存在
 $$y_i(\mathbf w^* \cdot \mathbf x_i) \ge \min_i(y_i(\mathbf w^* \cdot \mathbf x_i)) > \gamma$$
+**定理2(有界性).** 存在 ${R \in R^n}$ 对于有限的数据集 $i\in \{1,2,...,n\}$，均有
+$$\left\|\mathbf x_i \right\| \le R$$
+**定理3(收敛性).** 感知机学习算法最多迭代次数（之后得到一个分离超平面），满足不等式：
+$$k\le \left( \frac{R}{\gamma}\right) ^2$$
+证明：我们需要推导出 $k$ 的上边界是上式，策略是根据 $k$ 推导出 $\mathbf w_{k+1}$ 长度的上下限并将它们关联起来。
+
+注意到 $\mathbf w_{1}=0$，对于 $k\ge1$ ，如果 $\mathbf{x}_j$ 是迭代 $k$ 期间的误分类点，由定理1，我们有:
+$$
+\begin{aligned}
+    \mathbf w_{k+1} \cdot \mathbf{w}^*&=(\mathbf{w}_k + \eta y_j\mathbf{x}_j)\cdot \mathbf{w}^* \\
+    &=\mathbf w_{k} \cdot \mathbf{w}^* + \eta y_j(\mathbf{x}_j \cdot \mathbf{w}^*) \\
+    &>\mathbf w_{k} \cdot \mathbf{w}^* + \eta \gamma \\
+    &>\mathbf w_{k-1} \cdot \mathbf{w}^* + 2\eta \gamma \\
+    &>k\eta \gamma
+\end{aligned}
+$$
+由于
+$$
+\begin{aligned}
+\mathbf w_{k+1} \cdot \mathbf{w}^* 
+&= \left\|\mathbf w_{k+1} \right\|\left\|\mathbf w^* \right\| \cos \theta \\
+&\le \left\|\mathbf w_{k+1} \right\| \left\|\mathbf w^* \right\| 
+= \left\|\mathbf w_{k+1} \right\|
+\end{aligned}
+$$
+我们有：
+$$\left\|\mathbf w_{k+1} \right\| >k\eta \gamma$$
+至此我们得到了$\left\|\mathbf w_{k+1} \right\|$的下界，为了得到上界，我们推断：
+$$
+\begin{aligned}
+\left\|\mathbf w_{k+1} \right\|^2 
+&=\left\|\mathbf w_{k}+\eta y_j\mathbf{x}_j \right\|^2 \\
+&=\left\|\mathbf w_{k}\right\|^2 + \left\| \eta y_j\mathbf{x}_j \right\|^2 + 2(\mathbf w_{k}\cdot \mathbf x_{j})\eta y_j \\
+&=\left\|\mathbf w_{k}\right\|^2 + \left\| \eta \mathbf{x}_j \right\|^2 + 2(\mathbf w_{k}\cdot \mathbf x_{j})\eta y_j \\
+&\le \left\|\mathbf w_{k}\right\|^2 + \left\| \eta \mathbf{x}_j \right\|^2 \\
+&\le \left\|\mathbf w_{k}\right\|^2 + \eta ^2R^2 \\
+&\le \left\|\mathbf w_{k-1}\right\|^2 + 2\eta ^2R^2 \\
+&\le k\eta ^2R^2 \\
+\end{aligned}
+$$
+联立$\left\|\mathbf w_{k+1} \right\|$的上下界，我们得到不等式：
+$$(k\eta \gamma)^2
+<\left\|\mathbf w_{k+1} \right\|
+\le k\eta ^2R^2$$
+最终得到：
+$$k\le \left( \frac{R}{\gamma}\right) ^2$$
+Our proof is done!
 
 
 [1. 感知器-维基百科](https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8)
