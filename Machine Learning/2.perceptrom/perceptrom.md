@@ -89,17 +89,24 @@ $$w_{t+1}\leftarrow w_{t}+ \eta y_ix_i$$
 $$b_{t+1}\leftarrow b_{t}+ \eta y_i$$
 式中$\eta$是步长，在统计学习中称为学习率。通过迭代可以期待损失函数不断减少。
 
-为了便于推导，可以将偏置 $b$ 并入权重向量 $w$
-$$w\cdot x+b=[w,b]\cdot [x,1]=\hat{w}\cdot \hat{x}$$ 
+为了便于推导，可以将偏置 $b$ 并入权重向量 $w$，将 $d$ 维的输入转为 $(d+1)$ 维的输入，同时传入到对应的 $(d+1)$ 维感知机当中。
+$$w\cdot x+b=[w,b]\cdot [x,1]=\mathbf w\cdot \mathbf x$$ 
 
 总结算法流程如下:
-1. 初始化参数，迭代次数$t=1$并且$\hat w_1$为全是0的权重向量。
-2. 对每一个样本 $\hat x_t$ 预测，$f(x_t)=+1$ if $\hat{w_t}\cdot \hat{x_t}\ge 0$ else -1
-3. 对一个分类错误的样本进行学习，$\hat w_{t+1}\leftarrow \hat w_{t}+ \eta y_i\hat x_i$ 
+1. 初始化参数，迭代次数$t=1$并且$\mathbf w_1$为全是0的权重向量。
+2. 对每一个样本 $\mathbf x_t$ 预测，$f(x_t)=+1$ if $\mathbf w_t\cdot \mathbf x_t\ge 0$ else $-1$
+3. 对一个分类错误的样本 $y_i(\mathbf w_t \cdot \mathbf x_i) \le 0$ 进行学习，$\mathbf w_{t+1}\leftarrow \mathbf w_{t}+ \eta y_i\mathbf x_i$ 
 4. $t\leftarrow t + 1$
 
 ## 4、算法收敛性
+在证明感知机算法收敛性之前，先证明两个假设。
 
+**假定1**. 对于线性可分的数据集，存在 $\mathbf w^*$ 满足 $\left\|\mathbf w^* \right\|=1$ ,使得超平面 $\mathbf w^* \cdot \mathbf x=0$ 能够将所有训练数据完全正确分开，且存在 $\gamma > 0$，对于所有 $i\in \{1,2,...,n\}$，
+$$y_i(\mathbf w^* \cdot \mathbf x_i) > \gamma$$
+证明：由于训练数据集是线性可分的，则存在超平面将数据集完全分开，取此超平面为 $\mathbf w^* \cdot \mathbf x=0$，通过向量单位化使 $\left\|\mathbf w^* \right\|=1$ 。由于对于有限的数据集 $i\in \{1,2,...,n\}$，均有
+$$y_i(\mathbf w^* \cdot \mathbf x_i) > 0$$
+所以存在
+$$y_i(\mathbf w^* \cdot \mathbf x_i) \ge \min_i(y_i(\mathbf w^* \cdot \mathbf x_i)) > \gamma$$
 
 
 [1. 感知器-维基百科](https://zh.wikipedia.org/wiki/%E6%84%9F%E7%9F%A5%E5%99%A8)
