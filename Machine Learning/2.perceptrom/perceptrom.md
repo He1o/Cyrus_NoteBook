@@ -48,7 +48,7 @@ $$
 
 映射函数同样可以写成如下的表述形式：
 $$
-{\displaystyle y=\text{sign}(\sum_{i=1}^{n}{{w}_{i}{x}_{i}+b})=\text{sign}( {W}^{T} {X})}
+{\displaystyle y=\text{sign}(\sum_{i=1}^{n}{ {w}_{i}{x}_{i}+b})=\text{sign}( {W}^{T} {X})}
 $$
 
 ## 3、感知机学习算法
