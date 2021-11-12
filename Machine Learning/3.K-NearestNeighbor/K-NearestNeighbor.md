@@ -26,3 +26,10 @@ $$T=\{(\mathbf x_,y_1),(\mathbf x_2,y_2),...,(\mathbf x_N,y_N)\}$$
 
 假设两个特征向量 $\mathbf{x}_i=(x_i^{(1)},x_i^{(2)},...,x_i^{(n)})^T$，$\mathbf{x}_j=(x_j^{(1)},x_j^{(2)},...,x_j^{(n)})^T$，$\mathbf{x}_i,\mathbf{x}_j$ 的 $L_p$距离定义为：
 $$L_p(\mathbf{x}_i,\mathbf{x}_j)=\left(\sum_{l=1}^{n} |x_i^{(l)} - x_j^{(l)}|^p \right)^{\frac{1}{p}}$$
+
+
+http://www.atyun.com/37601.html
+https://zhuanlan.zhihu.com/p/110066200
+https://blog.csdn.net/sinat_30353259/article/details/80901746
+http://www.scholarpedia.org/article/K-nearest_neighbor
+https://zh.wikipedia.org/wiki/K-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95
