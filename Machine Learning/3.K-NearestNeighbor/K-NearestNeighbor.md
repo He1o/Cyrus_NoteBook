@@ -72,10 +72,91 @@ kNN算法的时间复杂度是 $O(k*N*m)$ ，$N$ 是训练样本的数量， $m$
 > 突然发现，工作中要把热力点匹配到距离最近的道路点上，同事就是用的种方法，取热力点所在单元格周围的九个格子中的link，再将取到的道路点和热力点进行匹配。
 
 ### 3.3 KD-树优化
-找到k个最近邻的点，本质还是搜索，而提高搜索效率很自然的就会想到二叉树，KD-树就是二叉树的一种推广。KD-树的时间复杂度平均为 $O(\log(N))$ ，它在笛卡尔坐标系中垂直于特征轴划分搜索空间，这在较低的维度上表现较好，随着特征轴的增多，KD-树将变得低效。
+找到k个最近邻的点，本质还是搜索，而提高搜索效率很自然的就会想到二叉树，KD-树就是二叉搜索树（BST）的一种推广。KD-树的时间复杂度平均为 $O(\log(N))$ ，它在笛卡尔坐标系中垂直于特征轴划分搜索空间，这在较低的维度上表现较好，随着特征轴的增多，KD-树将变得低效。
 
-KD-树
+**KD-树构建**
 
+构造KD-树相当于不断用垂直于坐标轴的超平面将k维空间切分，构造一系列的k维超矩形区域。KD-树的每个结点存储一个训练实例点，每一颗子树对应于一个k维超矩形空间。
+
+二叉搜索树是KD-树在一维空间的特例，任何一个节点相当于一个分割点，左边的比它小，右边的所有节点比它大。在二维空间，一个节点就相当于一条分割线，以此类推，三维空间就是一个面。这种分割方式意味着垂直于一条坐标轴进行分割。分割维度的方式是通过二叉树的深度，第一层根结点分割x轴，第二层分割y轴，以此类推，如果维度遍历完了，下一层又回到x轴，不断重复。
+
+KD-树构建步骤：
+1. 初始化数据集 $T=\{x_1, x_2,...,x_N\}$，KD树深度 $j=1$，数据集的维度为 $k$。
+2. 选择第 $l=j\bmod k + 1$ 维进行分割，找到数据集中所有实例的第 $l$ 维坐标的中位数，把该点作为切分点。
+3. （可选）不按照固定顺序选择切割维度，而是选取方差最大特征作为分割特征。
+4. 把切分点记录到KD-树节点上，把数据集中该特征值小于中位数的传递给左子树，把大于中位数的传递给右子树。
+5. 递归执行步骤2-4，直到所有数据都被建立到KD-树节点上。
+
+**KD-树搜索**
+
+KD-树构建完成之后，每次进行查找最近邻时就可以通过KD-树进行查找，类似于二分查找，但由于存在每一层只有一个节点的树形情况，时间复杂度介于 $O(\log(N))$、$O(N)$。相较于二叉搜索树，KD-树多了一个回溯的过程。
+
+KD-树搜索步骤：
+1. 从根节点起始，根据当前节点的分割维度查看查询点相应的特征值，与节点同一维度的特征值对比，根据大小相应的向左或向右移动。
+2. 当移动到叶子结点时，记录当前节点为“当前最近点”。
+3. 回溯，再从叶子结点返回根节点。
+4. 如果当前节点比当前最近点距离查询点更近，则记录当前节点为“当前最近点”。
+5. 
+
+```python
+import numpy
+
+class Node():
+    def __init__(self, feature):
+        self.father = None
+        self.feature = feature
+        self.left = None
+        self.right = None
+
+    @property
+    def brother(self):
+        if self == self.father.left:
+            return self.father.right
+        else:
+            return self.father.left
+
+    def __str__(self):
+        return 'feature: {}'.format(self.feature)
+
+class KDTree():
+    def __init__(self, points):
+        self.root = self.build_tree(points)
+
+    def build_tree(self, points, dim = 0, father = None):
+        if not points:
+            return None
+        
+        points = sorted(points, key = lambda x: x[dim])
+        mid = len(points) // 2
+        curNode = Node(points[mid])
+        curNode.father = father
+        curNode.left  = self.build_tree(points[:mid], (dim + 1) % len(points[0]), curNode)
+        curNode.right = self.build_tree(points[mid + 1:], (dim + 1) % len(points[0]), curNode)
+        
+        return curNode
+    
+    def __str__(self):
+        def inorder(root, depth = 0):
+            if not root:
+                return
+            ret.append('depth: {}, {}'.format(str(depth), str(root)))
+            inorder(root.left, depth + 1)
+            inorder(root.right, depth + 1)
+        
+        ret = []
+        inorder(self.root)
+        return '\n'.join(ret)
+
+pnts = [[2,3], [5,4], [9,6], [4,7], [8,1], [7,2]]
+tree = KDTree(pnts)
+print(tree)
+```
+> depth: 0, feature: [7, 2] </br>
+> depth: 1, feature: [5, 4]
+> depth: 2, feature: [2, 3]
+> depth: 2, feature: [4, 7]
+> depth: 1, feature: [9, 6]
+> depth: 2, feature: [8, 1]
 
 
 
