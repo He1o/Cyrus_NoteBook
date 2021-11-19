@@ -1,2 +1,6 @@
-a = [1]
-print(a[0:0])
+
+def abb(t):
+    return 3 if t else 2
+
+
+print(abb(1))
