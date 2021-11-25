@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 
 class Node():
     def __init__(self, feature):
@@ -67,7 +67,7 @@ class KDTree():
         return abs(target[node.divide] - node.feature[node.divide])
 
 
-    def nearest_neighbour_search(self, root, target):
+    def nearest_neighbour_search(self, target, root):
         nearest_node = self._search(root, target)
         nearest_distance = self._get_distance(nearest_node.feature, target)
         currnode = nearest_node
@@ -79,7 +79,14 @@ class KDTree():
                 nearest_node = currnode
                 nearest_distance = self._get_distance(currnode.feature, target)
             
-            if 
+            if self._get_hyper_plane_distance(currnode, target) < nearest_distance:
+                bro_distance, bro_nearest_node = self.nearest_neighbour_search(target, tempnode.brother)
+                if bro_distance < nearest_distance:
+                    nearest_node = bro_nearest_node
+                    nearest_distance = bro_distance
+        
+        return nearest_distance, nearest_node
+
             
 
         
@@ -87,4 +94,6 @@ class KDTree():
 
 pnts = [[2,3], [5,4], [9,6], [4,7], [8,1], [7,2]]
 tree = KDTree(pnts)
-print(tree)
+dis, node = tree.nearest_neighbour_search([6,2], tree.root)
+print(dis, node)
+
