@@ -53,33 +53,33 @@ $$P(y_k|x)=\frac{P(x|y_k)P(y_k)}{\sum\limits^n_{i=1}P(x|y_i)P(y_i)},k=1,2,\cdots
 
 上述公式是在一个特征 $x$ 的情况下，如果是多个特征，则需要求这多个特征的条件概率分布。
 
-$$P(X=\mathbf{x}|Y=y_k)=P(X^{(1)}=x^{(1)},\cdots,X^{(n)}=x^{(n)}|Y=c_k),k=1,2,\cdots,K$$
+$$P(X=\mathbf{x}|Y=c_k)=P(X^{(1)}=x^{(1)},\cdots,X^{(n)}=x^{(n)}|Y=c_k),k=1,2,\cdots,K$$
 
-条件联合概率分布 $P(X=\mathbf{x}|Y=y_k)$ 有指数级数量的参数，假设 $x^{(j)}$ 可取值有 $N_j$ 个，$j=1,2,\cdots,n$，Y可取值有 $K$ 个，那么参数个数为 $K\prod \limits_{j=1}^nN_j$。如果一个特征空间和类别都是二元的，维度是10，那么需要估计的参数就有2048个，平均每个参数需要100个观测值的话，那就需要20万组数据，随着特征维度的增加，这个值还会随指数增长。
+条件联合概率分布 $P(X=\mathbf{x}|Y=c_k)$ 有指数级数量的参数，假设 $x^{(j)}$ 可取值有 $N_j$ 个，$j=1,2,\cdots,n$，Y可取值有 $K$ 个，那么参数个数为 $K\prod \limits_{j=1}^nN_j$。如果一个特征空间和类别都是二元的，维度是10，那么需要估计的参数就有2048个，平均每个参数需要100个观测值的话，那就需要20万组数据，随着特征维度的增加，这个值还会随指数增长。
 
 除此之外，如果数据量不够大的情况下，由于数据的稀疏性，很容易统计到某个参数估计为0的情况，这也是不对的。
 
 朴素贝叶斯在求解条件概率分布时做了一个非常强的假设，条件独立性（conditional independence）。它的意思是在给定的类别下，不同维度特征的取值之间是相互独立的。朴素贝叶斯也因此得名。
 $$
 \begin{aligned}
-    P(X=\mathbf{x}|Y=y_k)&=P(X^{(1)}=x^{(1)},\cdots,X^{(n)}=x^{(n)}|Y=c_k),k=1,2,\cdots,K\\
-    &= \prod \limits_{j=1}^n P(X^{(j)}=x^{(j)}|Y=y_k)\\
+    P(X=\mathbf{x}|Y=c_k)&=P(X^{(1)}=x^{(1)},\cdots,X^{(n)}=x^{(n)}|Y=c_k),k=1,2,\cdots,K\\
+    &= \prod \limits_{j=1}^n P(X^{(j)}=x^{(j)}|Y=c_k)\\
 \end{aligned}
 $$
 
 朴素贝叶斯法实际上学习到生成数据的机制，所以属于生成模型。条件独立假设等于是说用于分类的特征在类确定的条件下都是条件独立的。这一假设使朴素贝叶斯法变得简单，但有时会牺牲一定的分类准确率。
 
-将上式带入贝叶斯公式，可以得到后验概率分布 $P(Y=y_k|X=\mathbf{x})$
-$$P(Y=y_k|X=\mathbf{x})=\frac{P(Y=y_k)\prod \limits_{j=1}^n P(X^{(j)}=x^{(j)}|Y=y_k)}{\sum\limits_k P(Y=y_k)\prod \limits_{j=1}^n P(X^{(j)}=x^{(j)}|Y=y_k)},k=1,2,\cdots,n$$
+将上式带入贝叶斯公式，可以得到后验概率分布 $P(Y=c_k|X=\mathbf{x})$
+$$P(Y=c_k|X=\mathbf{x})=\frac{P(Y=c_k)\prod \limits_{j=1}^n P(X^{(j)}=x^{(j)}|Y=c_k)}{\sum\limits_k P(Y=c_k)\prod \limits_{j=1}^n P(X^{(j)}=x^{(j)}|Y=c_k)},k=1,2,\cdots,n$$
 
 朴素贝叶斯实际是一个概率分类器，求出在不同类别下某一特征的概率分布，找到最大后验概率的类别即可。同时上式中的分母实际就是 $P(X=\mathbf{x})$，可以直接求得，并且由于同一特征分母均相同，可以省略分母，就是只比较分子的大小，选出最大的即可。
 
 
 $$
 \begin{aligned}
-    \hat{y}&=\argmax_{y_k}P(Y=y_k|X=\mathbf{x})\\
-    &= \argmax_{y_k} \frac{P(Y=y_k)\prod \limits_{j=1}^n P(X^{(j)}=x^{(j)}|Y=y_k)}{\sum\limits_k P(Y=y_k)\prod \limits_{j=1}^n P(X^{(j)}=x^{(j)}|Y=y_k)}\\
-    &= \argmax_{y_k}  P(Y=y_k)\prod \limits_{j=1}^n P(X^{(j)}=x^{(j)}|Y=y_k)
+    \hat{y}&=\argmax_{c_k}P(Y=c_k|X=\mathbf{x})\\
+    &= \argmax_{c_k} \frac{P(Y=c_k)\prod \limits_{j=1}^n P(X^{(j)}=x^{(j)}|Y=c_k)}{\sum\limits_k P(Y=c_k)\prod \limits_{j=1}^n P(X^{(j)}=x^{(j)}|Y=c_k)}\\
+    &= \argmax_{c_k}  P(Y=c_k)\prod \limits_{j=1}^n P(X^{(j)}=x^{(j)}|Y=c_k)
 \end{aligned}
 $$
 
@@ -139,9 +139,24 @@ $$\sum^{S_j}_{l=1}P(X^{(j)}=a_{jl}|Y=c_k)=1$$
 $$P_\lambda(Y=c_k)=\frac{\sum\limits^N_{i=1}I(y_i=c_k)+\lambda}{N+K\lambda},k=1,2,\cdots,K$$
 
 ## 4.算法流程
+以下给出朴素贝叶斯的完整算法。有些时候朴素贝叶斯计算会把后验概率映射到对数空间进行计算，这样做的好处是避免值太小以及加快计算速度（avoid underflow and increase speed）。
 
+**算法输入：** 训练数据集 $T$ 和实例 $\mathbf x$。
+$$T=\{(\mathbf x_1,y_1),(\mathbf x_2,y_2),...,(\mathbf x_N,y_N)\}$$
+其中 $\mathbf x_i=(x_i^{(1)},x_i^{(2)},\cdots,x_i^{(n)})^T$，$x_i^{(j)}$ 是第 $i$ 个样本的第 $j$ 个特征，$x_i^{(j)}\in\{a_{j1},a_{j2},\cdots,a_{jS_j}\}$，$a_{jl}$ 是第 $j$ 个特征可能取的第 $l$ 个值，$j=1,2,\cdots,n$，$l=1,2,\cdots,S_j$，$y_i\in\{c_1,c_2,\cdots,c_K\}$
 
+**算法输出：** 实例 $\mathbf x$ 的分类。
 
+**算法流程：**
+
+1. 计算先验概率及条件概率
+$$P(Y=c_k)=\frac{\sum\limits^N_{i=1}I(y_i=c_k)}{N},k=1,2,\cdots,K$$
+$$P(X^{(j)}=a_{jl}|Y=c_k)=\frac{\sum\limits^N_{i=1}I(x_i^{(j)}=a_{jl},y_i=c_k)}{\sum\limits^N_{i=1}I(y_i=c_k)}$$
+2. 对于给定的实例 $\mathbf{x}=(x^{(1)},x^{(2)},\cdots,x^{(n)})^T$，计算映射到对数空间的后验概率
+$$P(Y=c_k|X=\mathbf{x})=\log P(Y=c_k)+\sum_{j=1}^n\log P(X^{(j)}=x^{(j)}|Y=c_k),k=1,2,\cdots,K$$
+3. 确定实例 $\mathbf{x}$ 的类别
+$$y=\argmax_{c_k} P(Y=c_k|X=\mathbf{x})$$
+## 参考
 https://www.cnblogs.com/bonheur/p/12469873.html
 https://holypython.com/nbc/naive-bayes-classifier-history/
 https://www.zhihu.com/question/20138060
