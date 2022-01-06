@@ -18,18 +18,22 @@ class Perceptron(object):
 
 
     def train(self):
-        for _ in range(100):
+        for idx in range(100):
             flag = True
             for i, inpute_data in enumerate(self.train_data):
                 if self.lable[i] * self.predict(inpute_data) <= 0:
-                    self.weights += self.eta * self.lable[i]  * inpute_data
-                    flag = False
                     plt.cla()
                     scat()
-                    plt.xlim((0, 10))
-                    plt.ylim((0, 10))
-                    plt.plot([0,10], [(-self.weights[2] / self.weights[1]), (-self.weights[2] - 10 * self.weights[0]) / self.weights[1]])
-                    plt.pause(1.5)
+                    plt.plot([-5,10], [(-self.weights[2] - (-5) * self.weights[0]) / self.weights[1], (-self.weights[2] - 10 * self.weights[0]) / self.weights[1]])
+                    # print(self.eta * self.lable[i] * inpute_data)
+                    print(self.weights, self.eta * self.lable[i] * inpute_data, self.predict(inpute_data), self.lable[i])
+                    self.weights += self.eta * self.lable[i] * inpute_data
+                    flag = False
+                    plt.scatter(inpute_data[0], inpute_data[1], c='k')
+                    plt.xlim((-5, 10))
+                    plt.ylim((-5, 10))
+                    # plt.pause(0.5)
+                    plt.savefig('testblueline{}-{}.jpg'.format(idx,i))
             if flag:
                 return self.weights
 
