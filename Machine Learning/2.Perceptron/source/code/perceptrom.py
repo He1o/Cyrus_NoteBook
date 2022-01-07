@@ -41,7 +41,7 @@ class Perceptron(object):
                     plt.plot([-5,10], [Y(-5, vectorB), Y(10, vectorB)])
                     print(self.weights, self.eta * self.lable[i] * inpute_data, self.predict(inpute_data), self.lable[i])
                     plt.scatter(inpute_data[0], inpute_data[1], c='k')
-                    plt.savefig('testblueline{}-{}.jpg'.format(idx,i))
+                    plt.savefig('img_{}_{}.jpg'.format(idx,i))
                     self.weights += vectorA
                     
                     flag = False
