@@ -4,7 +4,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import pandas as pd
-data = pd.read_csv('Machine Learning/3.K-NearestNeighbor/source/data.csv')
+data = pd.read_csv('MachineLearning/3.K-NearestNeighbor/source/data.csv')
 X = data[['heat_value','heat_ratio','reroute_value']].values
 Y = data[['target']].values.ravel()
 
