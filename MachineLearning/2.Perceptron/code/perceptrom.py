@@ -30,7 +30,6 @@ class Perceptron(object):
                     scat()
                     # plt.scatter(0, -self.weights[2] / self.weights[1], c='k')
                     plt.ylim((-5, 10))
-
                     plt.xlim((-5, 10))
                     plt.plot([0, vectorA[0]], [Y(0, self.weights), Y(0, self.weights) + vectorA[1]])
                     plt.plot([0, self.weights[0]], [Y(0, self.weights), Y(0, self.weights) + self.weights[1]])

@@ -1,13 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import random
-def drawminkowski(sampling =100, p = [0.1,0.5,1,2,3,10,100]):
+def drawminkowski(sampling =10001, p = [0.1,0.5,1,2,3,10,100]):
  
     X = np.linspace(-1, 1, sampling)
  
     plt.figure(figsize=(8,8), dpi=80)
     plt.xlabel("X")
     plt.ylabel("Y")
+    plt.xlim(-1,1)
     plt.ylim(-1,1)
     plt.title("minkowski distance, distance = 1, p = " + str(p))
  
