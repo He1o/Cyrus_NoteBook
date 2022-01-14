@@ -6,7 +6,7 @@ def drawminkowski(sampling =10001, p = [0.1,0.5,1,2,3,10,100]):
     X = np.linspace(-1, 1, sampling)
     # plt.style.use('Solarize_Light2')
     # plt.figure().add_subplot(111).set_aspect('equal')
-    plt.figure(figsize=(6,6), dpi=300)
+    # plt.figure(figsize=(6,6), dpi=300)
     # plt.axis('off')
     plt.gca().xaxis.set_major_locator(plt.NullLocator())
     plt.gca().yaxis.set_major_locator(plt.NullLocator())
@@ -31,6 +31,6 @@ def drawminkowski(sampling =10001, p = [0.1,0.5,1,2,3,10,100]):
         plt.plot(X,-Y, color = "#" + format(color, "06x"), linewidth = 1)
  
     plt.legend()
-    # plt.show()
-    plt.savefig('distance.svg')
+    plt.show()
+    # plt.savefig('distance.svg')
 drawminkowski()
