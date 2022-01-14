@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 # plt.figure().set_size_inches(8, 8)
+
+
 class Perceptron(object):
     def __init__(self, train_data, lable):
         self.data_pos = train_data
@@ -25,11 +27,11 @@ class Perceptron(object):
                 if self.lable[i] * self.predict(inpute_data) <= 0:
                     self.vectorA = self.eta * self.lable[i] * inpute_data
                     Y = lambda x,y: (- y[2] - (x) * y[0]) / y[1]
-                    plt.cla()
-                    plt.figure().set_size_inches(6, 6)
+                    # plt.cla()
+                    plt.figure(dpi=80).set_size_inches(6, 6)
+                    plt.subplots_adjust(top = 0.93, bottom = 0.07, right = 0.93, left = 0.07, hspace = 0, wspace = 0)
                     plt.style.use('Solarize_Light2')
 
-                    plt.subplots_adjust(top = 0.93, bottom = 0.07, right = 0.93, left = 0.07, hspace = 0, wspace = 0)
                     plt.ylim((-5, 10))
                     plt.xlim((-5, 10))               
                     plt.scatter([x[0] for x in self.data_pos[:5]], [x[1] for x in self.data_pos[:5]], c='r')
@@ -46,7 +48,7 @@ class Perceptron(object):
                     plt.plot([-5,10], [Y(-5, self.vectorB), Y(10, self.vectorB)])
 
                     print(self.weights, self.eta * self.lable[i] * inpute_data, self.predict(inpute_data), self.lable[i])
-                    plt.savefig('img_{}_{}.jpg'.format(idx,i))
+                    plt.savefig('img_{}_{}.png'.format(idx,i))
                     flag = False
                     
                     self.weights = self.vectorB

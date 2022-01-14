@@ -31,5 +31,6 @@ def drawminkowski(sampling =10001, p = [0.1,0.5,1,2,3,10,100]):
         plt.plot(X,-Y, color = "#" + format(color, "06x"), linewidth = 1)
  
     plt.legend()
-    plt.show()
+    # plt.show()
+    plt.savefig('distance.png')
 drawminkowski()
