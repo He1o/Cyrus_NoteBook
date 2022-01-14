@@ -32,5 +32,5 @@ def drawminkowski(sampling =10001, p = [0.1,0.5,1,2,3,10,100]):
  
     plt.legend()
     # plt.show()
-    plt.savefig('distance.png')
+    plt.savefig('distance.svg')
 drawminkowski()
