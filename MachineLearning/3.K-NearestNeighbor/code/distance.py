@@ -4,8 +4,16 @@ import random
 def drawminkowski(sampling =10001, p = [0.1,0.5,1,2,3,10,100]):
  
     X = np.linspace(-1, 1, sampling)
- 
+    # plt.style.use('Solarize_Light2')
+    # plt.figure().add_subplot(111).set_aspect('equal')
     plt.figure(figsize=(8,8), dpi=80)
+    # plt.axis('off')
+    # plt.gca().xaxis.set_major_locator(plt.NullLocator())
+    # plt.gca().yaxis.set_major_locator(plt.NullLocator())
+    plt.subplots_adjust(top = 0.93, bottom = 0.07, right = 0.93, left = 0.07, hspace = 0, wspace = 0)
+    # plt.margins(10,10)
+    
+    
     plt.xlabel("X")
     plt.ylabel("Y")
     plt.xlim(-1,1)

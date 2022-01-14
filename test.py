@@ -1,6 +1,1 @@
-
-def abb(t):
-    return 3 if t else 2
-
-
-print(abb(1))
+from MachineLearning.N1LeastSquare.code import least_square

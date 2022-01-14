@@ -1,7 +1,10 @@
-import matplotlib.pyplot as plt
 import numpy as np
-# %matplotlib inline
+import matplotlib.pyplot as plt
 
+plt.figure(figsize=(8,8), dpi=80)
+plt.subplots_adjust(top = 0.94, bottom = 0.06, right = 0.94, left = 0.06, hspace = 0.1, wspace = 0.1)
+
+# %matplotlib inline
 x = np.array([142.08, 177.30, 204.68, 242.88, 316.24, 332.69, 341.99, 389.29, 453.40])
 y = np.array([3.93,   5.96,   7.85,   9.82,   12.50,  15.79,  15.55,  16.39,  18.45])
 
@@ -61,4 +64,5 @@ plt.subplot(224)
 plt.plot(x, y, 'bo', label='noise')
 plt.plot(x, np.poly1d(beta)(x), label='fitted curve')
 
-plt.show()
+# plt.show()
+plt.savefig('least_square.png')
