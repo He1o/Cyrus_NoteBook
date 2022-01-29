@@ -27,7 +27,7 @@ def polynomial(x, n):
     X = np.mat(x)
     X = np.append(np.ones((1, 9)), X, axis = 0)
     for i in range(1, n):
-        X = np.append(X, np.mat(x**(i + 1)), axis = 0)
+        X = np.append(X, np.mat(x ** (i + 1)), axis = 0)
     return X.T
 
 Y = np.mat(y).T
