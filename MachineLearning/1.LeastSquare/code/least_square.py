@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-plt.figure(figsize=(8,8), dpi=80)
+plt.figure(figsize=(8,8), dpi=240)
 plt.subplots_adjust(top = 0.94, bottom = 0.06, right = 0.94, left = 0.06, hspace = 0.1, wspace = 0.1)
 
 # %matplotlib inline
