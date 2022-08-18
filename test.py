@@ -20,3 +20,4 @@ for x in np.linspace(-1, 3, 1000):
 
 plt.plot(X, Y)
 plt.show()
+        
