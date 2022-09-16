@@ -21,3 +21,6 @@ for x in np.linspace(-1, 3, 1000):
 plt.plot(X, Y)
 plt.show()
         
+
+
+[time_stamp, user_id, function = "total_used:" || function = "total_used_algorithm:" || function = "tile_used:", time, index]
